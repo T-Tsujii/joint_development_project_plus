@@ -1,0 +1,11 @@
+<%= form_with(model: task, local: true) do |form| %>
+  <div class="form-group">
+    タイトル <%= form.text_field :title %>
+  </div>
+
+  <div class="form-group">
+    内容 <%= form.text_field :content %>
+  </div>
+
+  <%= form.submit "送信" %>
+<% end %>
