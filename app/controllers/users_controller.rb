@@ -16,15 +16,30 @@ class UsersController < ApplicationController
   end
 
   def create
-    User.create(user_params)
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to users_path, notice: "ユーザーを登録しました。"
+    else
+      flash.now[:alert] = "ユーザーの登録に失敗しました。"
+      render :new
+    end
   end
 
   def update
-    @user.update(user_params)
+    if @user.update(user_params)
+      redirect_to users_path, notice: "ユーザーを編集しました。"
+    else
+      flash.now[:alert] = "ユーザーの編集に失敗しました。"
+      render :edit
+    end
   end
 
   def destroy
-    @user.destroy
+    if @user.destroy
+      redirect_to users_path, alert: "ユーザーを削除しました。"
+    else
+      redirect_to users_path, alert: "ユーザーの削除に失敗しました。"
+    end
   end
 
   private
